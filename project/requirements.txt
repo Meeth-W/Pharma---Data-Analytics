@@ -4,3 +4,4 @@ pandas
 Matplotlib
 Seaborn
 numpy
+faker
