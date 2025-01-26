@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+pandas
+Matplotlib
+Seaborn
+numpy
