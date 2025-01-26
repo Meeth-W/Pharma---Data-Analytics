@@ -9,14 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             const response = await fetch("http://127.0.0.1:8000/api/v1/refresh_stats");
-            if (!response.ok) {
-                throw new Error("Failed to refresh stats");
-            }
+            if (!response.ok) { throw new Error("Failed to refresh stats"); }
 
             const data = await response.json();
             alert(data.message);
 
-            // Refresh the carousel images
             refreshCarouselImages();
         } catch (error) {
             console.error("Error refreshing stats:", error);
@@ -27,21 +24,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Handle Carousel
     const imagesBasePath = "./static/images/carousel/";
     const images = Array.from({ length: 10 }, (_, i) => `image${i + 1}.jpg`);
     const carouselImages = document.querySelector(".carousel-images");
     const carouselSelectors = document.querySelector(".carousel-selectors");
     let currentIndex = 0;
 
-    // Populate carousel images and selectors
     function populateCarousel() {
-        carouselImages.innerHTML = ""; // Clear existing images
-        carouselSelectors.innerHTML = ""; // Clear existing selectors
+        carouselImages.innerHTML = "";
+        carouselSelectors.innerHTML = "";
 
         images.forEach((imageName, index) => {
             const img = document.createElement("img");
-            img.src = `${imagesBasePath}${imageName}?t=${Date.now()}`; // Add timestamp to invalidate cache
+            img.src = `${imagesBasePath}${imageName}?t=${Date.now()}`; 
             carouselImages.appendChild(img);
 
             const button = document.createElement("button");
@@ -51,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
             carouselSelectors.appendChild(button);
         });
 
-        goToImage(0); // Reset to the first image
+        goToImage(0);
     }
 
     const prevButton = document.querySelector(".carousel-btn.prev");
@@ -69,10 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
         currentIndex = index;
     }
 
-    function refreshCarouselImages() {
-        populateCarousel(); // Rebuild the carousel with updated image URLs
-    }
-
-    // Initialize carousel
+    function refreshCarouselImages() { populateCarousel(); }
     populateCarousel();
 });
