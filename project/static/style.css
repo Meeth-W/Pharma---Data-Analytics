@@ -7,6 +7,10 @@ body {
     overflow: hidden;
 }
 
+body, html { margin: 0; padding: 0; overflow: auto; height: 100% }
+.overlay { pointer-events: none; } .statistics-section { margin-top: 80px; }
+
+
 .overlay {
     background: url('images/background.jpg') no-repeat center center/cover;
     position: fixed;
@@ -55,7 +59,7 @@ body {
     font-weight: bold;
     color: #00ff7f;
     text-transform: uppercase;
-  }
+}
 
 .nav-links li a:hover {
     color: #00ff7f;
@@ -101,6 +105,110 @@ body {
     color: #ccc;
     animation: fadeIn 2s ease-in-out;
 }
+
+/* Statistics Section */
+.statistics-section {
+    padding: 2rem;
+    text-align: center;
+    color: #fff;
+    background-color: #1e1e1e;
+    margin-top: 4rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #00ff7f;
+}
+
+/* Animated Refresh Button */
+.animated-button {
+    background-color: #00ff7f;
+    color: #121212;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 2rem;
+}
+
+.animated-button:hover {
+    background-color: #00cc63;
+    transform: scale(1.1);
+    box-shadow: 0px 4px 10px rgba(0, 255, 127, 0.4);
+}
+
+/* Carousel */
+.carousel {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+.carousel-images img {
+    width: 100%;
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 5;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+.carousel-btn.prev {
+    left: 10px;
+}
+
+.carousel-btn.next {
+    right: 10px;
+}
+
+.carousel-selectors {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.carousel-selectors button {
+    width: 12px;
+    height: 12px;
+    background-color: #555;
+    border: none;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.carousel-selectors button.active {
+    background-color: #00ff7f;
+}
+
+.carousel-selectors button:hover {
+    background-color: #00cc63;
+}
+
 
 /* Animations */
 @keyframes fadeIn {

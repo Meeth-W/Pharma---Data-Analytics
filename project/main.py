@@ -13,9 +13,9 @@ async def read_root():
 
 
 # API Routes:
-@app.get("/api/v1/")
-async def _():
-    return {}
+@app.get("/api/v1/refresh_stats")
+async def refresh_stats():
+    return {"message": "Stats refreshed!"}
 
 
 # Driver Code
