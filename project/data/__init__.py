@@ -1,6 +1,5 @@
 # Data Generation Script
 
-
 import csv
 from faker import Faker
 
