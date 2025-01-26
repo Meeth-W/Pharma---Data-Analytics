@@ -41,14 +41,16 @@ async def refresh_stats():
             {"title": "Average Unit Price by Manufacturer", "plot_func": avg_price_by_manufacturer}
         ]
 
+        print("[LOG] Refreshing stats and saving plots...")
         for idx, plot in enumerate(plots, start=1):
             from matplotlib import pyplot as plt
             fig, ax = plt.subplots(figsize=(10, 6))
             plot["plot_func"](df, ax)
             image_path = os.path.join(image_folder, f"image{idx}.jpg")
+            print(f"[LOG] Saving plot: {image_path}")
             plt.savefig(image_path, format="jpg")
             plt.close(fig)
-
+        print("[LOG] All plots saved!")
         return {"message": "Stats refreshed and plots saved!"}
 
     except Exception as e:
