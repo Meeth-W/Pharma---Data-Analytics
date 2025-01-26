@@ -1,15 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Website is ready!");
-});
 
-
-document.addEventListener("DOMContentLoaded", () => {
-    // Handle Refresh Stats Button
     const refreshButton = document.getElementById("refresh-stats");
 
     refreshButton.addEventListener("click", async () => {
         refreshButton.innerText = "Refreshing...";
-        refreshButton.disabled = true; 
+        refreshButton.disabled = true;
 
         try {
             const response = await fetch("http://127.0.0.1:8000/api/v1/refresh_stats");
@@ -18,39 +14,45 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const data = await response.json();
-            alert(data.message); 
+            alert(data.message);
+
+            // Refresh the carousel images
+            refreshCarouselImages();
         } catch (error) {
             console.error("Error refreshing stats:", error);
             alert("An error occurred while refreshing stats.");
         } finally {
             refreshButton.innerText = "Refresh Stats";
-            refreshButton.disabled = false; 
+            refreshButton.disabled = false;
         }
     });
 
     // Handle Carousel
-    const images = [
-        "./static/images/carousel/image1.jpg",
-        "./static/images/carousel/image2.jpg",
-        "./static/images/carousel/image3.jpg",
-    ];
-
+    const imagesBasePath = "./static/images/carousel/";
+    const images = Array.from({ length: 10 }, (_, i) => `image${i + 1}.jpg`);
     const carouselImages = document.querySelector(".carousel-images");
     const carouselSelectors = document.querySelector(".carousel-selectors");
     let currentIndex = 0;
 
     // Populate carousel images and selectors
-    images.forEach((src, index) => {
-        const img = document.createElement("img");
-        img.src = src;
-        carouselImages.appendChild(img);
+    function populateCarousel() {
+        carouselImages.innerHTML = ""; // Clear existing images
+        carouselSelectors.innerHTML = ""; // Clear existing selectors
 
-        const button = document.createElement("button");
-        button.classList.add("selector-btn");
-        if (index === 0) button.classList.add("active");
-        button.addEventListener("click", () => goToImage(index));
-        carouselSelectors.appendChild(button);
-    });
+        images.forEach((imageName, index) => {
+            const img = document.createElement("img");
+            img.src = `${imagesBasePath}${imageName}?t=${Date.now()}`; // Add timestamp to invalidate cache
+            carouselImages.appendChild(img);
+
+            const button = document.createElement("button");
+            button.classList.add("selector-btn");
+            if (index === 0) button.classList.add("active");
+            button.addEventListener("click", () => goToImage(index));
+            carouselSelectors.appendChild(button);
+        });
+
+        goToImage(0); // Reset to the first image
+    }
 
     const prevButton = document.querySelector(".carousel-btn.prev");
     const nextButton = document.querySelector(".carousel-btn.next");
@@ -66,4 +68,11 @@ document.addEventListener("DOMContentLoaded", () => {
         carouselSelectors.children[index].classList.add("active");
         currentIndex = index;
     }
+
+    function refreshCarouselImages() {
+        populateCarousel(); // Rebuild the carousel with updated image URLs
+    }
+
+    // Initialize carousel
+    populateCarousel();
 });
