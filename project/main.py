@@ -12,8 +12,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Main dashboard website:
 @app.get("/")
-async def read_root():
-    return FileResponse("static/index.html")
+async def read_root(): return FileResponse("static/index.html")
 
 
 # API Routes:
@@ -53,8 +52,7 @@ async def refresh_stats():
         print("[LOG] All plots saved!")
         return {"message": "Stats refreshed and plots saved!"}
 
-    except Exception as e:
-        return {"error": str(e)}
+    except Exception as e: return {"error": str(e)}
 
 
 # Driver Code
